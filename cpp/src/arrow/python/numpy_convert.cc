@@ -250,7 +250,7 @@ Status TensorToNdarray(const Tensor& tensor, PyObject* base, PyObject** out) {
   int array_flags = 0;
   if (tensor.is_row_major()) { array_flags |= NPY_ARRAY_C_CONTIGUOUS; }
   if (tensor.is_column_major()) { array_flags |= NPY_ARRAY_F_CONTIGUOUS; }
-  if (tensor.is_mutable()) { array_flags |= NPY_ARRAY_WRITEABLE; }
+  array_flags |= NPY_ARRAY_WRITEABLE;
 
   PyObject* result = PyArray_NewFromDescr(&PyArray_Type, dtype, tensor.ndim(),
       npy_shape.data(), npy_strides.data(), mutable_data, array_flags, nullptr);
